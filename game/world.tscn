@@ -1,0 +1,172 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://champaign_heightmap.jpeg" type="Texture" id=1]
+[ext_resource path="res://IL_Champaign_310101_1985_100000.jpg" type="Texture" id=2]
+[ext_resource path="res://zoom_to_champaign.anim" type="Animation" id=3]
+[ext_resource path="res://button_start.gd" type="Script" id=4]
+[ext_resource path="res://vars.gd" type="Script" id=5]
+
+[sub_resource type="PlaneMesh" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+flags_transparent = true
+params_blend_mode = 1
+albedo_texture = ExtResource( 1 )
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_texture = ExtResource( 2 )
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Camera:translation:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Camera:translation:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 830, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("Camera:translation:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="Animation" id=8]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 89, 325 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "mainpage_button_settings"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 89, 325 ), Vector2( -220, 325 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 89, 199 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "mainpage_button_start"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 89, 199 ), Vector2( -220, 199 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "mainpage_buttons"
+
+[node name="map" type="Spatial"]
+
+[node name="historic_maps" type="Spatial" parent="."]
+transform = Transform( 989, 0, 0, 0, 1, 0, 0, 0, 562, 0, 0, 0 )
+
+[node name="MeshInstance" type="MeshInstance" parent="historic_maps"]
+transform = Transform( 0.262481, 0, 0, 0, 0.198676, 0, 0, 0, 0.262481, 0.33, 0.1, 0.548 )
+visible = false
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="historic_maps"]
+transform = Transform( 1, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0, 0, 0 )
+mesh = SubResource( 1 )
+skeleton = NodePath("../MeshInstance")
+material/0 = SubResource( 3 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 830, 0 )
+far = 8192.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera"]
+root_node = NodePath("../..")
+anims/RESET = SubResource( 4 )
+anims/zoom_to_champaign = ExtResource( 3 )
+
+[node name="SpotLight" type="SpotLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 330, 900, 300 )
+spot_range = 1208.11
+spot_angle = 11.97
+spot_angle_attenuation = 4.14105
+
+[node name="button_settings" type="Button" parent="."]
+margin_left = 89.0
+margin_top = 325.0
+margin_right = 307.0
+margin_bottom = 417.0
+text = "settings"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="button_settings"]
+anims/RESET = SubResource( 8 )
+anims/mainpage_button_settings = SubResource( 9 )
+
+[node name="button_start" type="Button" parent="."]
+margin_left = 89.0
+margin_top = 199.0
+margin_right = 307.0
+margin_bottom = 291.0
+text = "Start"
+script = ExtResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="button_start"]
+anims/RESET = SubResource( 5 )
+anims/mainpage_button_start = SubResource( 6 )
+anims/mainpage_buttons = SubResource( 7 )
+
+[node name="vars" type="Node" parent="."]
+script = ExtResource( 5 )
